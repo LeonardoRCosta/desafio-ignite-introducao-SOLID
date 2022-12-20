@@ -1,0 +1,274 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UsersAPI Documentation",
+    "description": "This is an Users CRUD API",
+    "version": "1.0.0",
+    "contact": {
+      "email": "leonardo.costa@gcbinvestimentos.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new users",
+        "description": "Create a new users",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "users name example",
+                  "email": "users email example"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "users already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List all users",
+        "description": "List all users",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "The admin user_id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "datetime"
+                      },
+                      "updated_at": {
+                        "type": "datetime"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "id": "c8983150-fc1d-43fd-bb4c-c08511bc8225",
+                    "admin": false,
+                    "created_at": "2022-12-20T14:12:04.897Z",
+                    "updated_at": "2022-12-20T14:12:04.897Z",
+                    "name": "Leonardo Ramos",
+                    "email": "lrcosta04@gmail.com"
+                  },
+                  {
+                    "id": "8961e509-e5fa-46b1-b0e2-4591f6b8431b",
+                    "admin": true,
+                    "created_at": "2022-12-20T14:15:02.103Z",
+                    "updated_at": "2022-12-20T14:15:02.103Z",
+                    "name": "Leonardo Ramos Costa",
+                    "email": "lrcosta04@live.com"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "You do not have permission to list all users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "You do not have permission to list all users."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List one user",
+        "description": "List one user using the provided id",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The user_id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "datetime"
+                    },
+                    "updated_at": {
+                      "type": "datetime"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "c8983150-fc1d-43fd-bb4c-c08511bc8225",
+                    "admin": false,
+                    "created_at": "2022-12-20T14:12:04.897Z",
+                    "updated_at": "2022-12-20T14:12:04.897Z",
+                    "name": "Leonardo Ramos",
+                    "email": "lrcosta04@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Make user admin",
+        "description": "Make user admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The user_id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "datetime"
+                      },
+                      "updated_at": {
+                        "type": "datetime"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "User not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
