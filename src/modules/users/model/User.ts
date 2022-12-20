@@ -17,7 +17,7 @@ class User {
     this.id ? this.id : (this.id = uuidV4());
     this.admin ? this.admin : (this.admin = false);
     this.created_at ? this.created_at : (this.created_at = new Date());
-    this.updated_at ? this.updated_at : (this.updated_at = new Date());
+    this.updated_at = new Date();
   }
 }
 
