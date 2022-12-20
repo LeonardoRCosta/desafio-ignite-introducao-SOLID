@@ -15,6 +15,8 @@ class TurnUserAdminUseCase {
 
     this.usersRepository.turnAdmin(user);
 
+    user.updated_at = new Date();
+
     return user;
   }
 }
